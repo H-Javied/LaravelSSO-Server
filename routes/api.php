@@ -28,3 +28,6 @@ Route::middleware('auth:api')->get('/logMeOut', function (Request $request) {
         "message" => "Revoked"
     ]);
 });
+Route::middleware('auth:api')->get('/blog-Posts', function () {
+    return view('blogPosts');
+});
