@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,5 +36,24 @@ class HomeController extends Controller
         Session::put("url.intended", $request->current_url);
         //redirect to login
         return redirect("login");
+    }
+
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getPermission(Request $request)
+    {
+        $user = $request->user();
+        //$access_token = $user->token();
+        //DB::table("oauth_refresh_tokens")->where("access_token_id", $access_token->id);
+        return response()->json([$user], 200);
+    }
+
+    public function blogPosts()
+    {
+        return view('blogPosts');
     }
 }
