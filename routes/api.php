@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,14 @@ Route::middleware('auth:api')->get('/logMeOut', function (Request $request) {
 });
 Route::middleware('auth:api')->get('/blog-Posts', function () {
     return view('blogPosts');
+});
+Route::middleware('auth:api')->get('/betaTesterPermission', function (Request $request) {
+    $user = $request->user();
+    User::where('email', $user["email"])->update(array(
+        'permission' => 1,
+    ));
+    return response()->json([
+        "message" => "GREEN"
+    ]);
+    // dd($user["email"]);
 });
